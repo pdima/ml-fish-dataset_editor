@@ -4,23 +4,20 @@
 #include <QWidget>
 #include <QFileInfo>
 
-class SelectionOnImage : public QWidget
+class SelectionModel;
+
+class FullImageView : public QWidget
 {
     Q_OBJECT
 public:
-    SelectionOnImage(QWidget *parent);
-    virtual ~SelectionOnImage();
+    FullImageView(QWidget *parent);
+    virtual ~FullImageView();
 
-    static QString selectionsPath(const QFileInfo& imgFile);
+    void setModel(SelectionModel* model);
 
 signals:
     void nextImageRequested();
     void prevImageRequested();
-
-public slots:
-    void clearSelections();
-    void clearLastSelection();
-    void load(const QFileInfo& f);
 
     // QWidget interface
 protected:
@@ -35,14 +32,7 @@ private:
     QRectF imgToWidget(const QRectF& r);
     QRectF widgetToImg(const QRectF& r);
 
-
-    void saveSelections();
-    void loadSelections(const QString& path);
-    void saveSelections(const QString& path);
-
-    QFileInfo m_imgPath;
-    QImage m_img;
-    QList<QRectF> m_selections;
+    SelectionModel* m_model {nullptr};
 
     bool m_selecting;
     QPointF m_startSelection;

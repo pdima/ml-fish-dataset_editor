@@ -15,12 +15,17 @@ TEMPLATE = app
 SOURCES += \
     main.cpp\
     mainwindow.cpp \
-    selectiononimage.cpp \
-
+    selectionmodel.cpp \
+    fullimageview.cpp \
+    selectiondetailsview.cpp \
+    selectioncropview.cpp
 
 HEADERS  += \
     mainwindow.h \
-    selectiononimage.h \
+    selectionmodel.h \
+    fullimageview.h \
+    selectiondetailsview.h \
+    selectioncropview.h
 
-
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    selectiondetailsview.ui

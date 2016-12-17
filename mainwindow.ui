@@ -16,7 +16,13 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="SelectionOnImage" name="selectionOnImageWidget" native="true"/>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="FullImageView" name="fullImageViewWidget" native="true"/>
+      <widget class="SelectionDetailsView" name="selectionDetailsView" native="true"/>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -42,7 +48,7 @@
     <property name="title">
      <string>Image</string>
     </property>
-    <addaction name="actionClear_Last_Selection"/>
+    <addaction name="actionClear_Current_Selection"/>
     <addaction name="actionClear"/>
     <addaction name="actionNext_Image"/>
     <addaction name="actionPrev_Image"/>
@@ -57,7 +63,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionClear_Last_Selection"/>
+   <addaction name="actionClear_Current_Selection"/>
    <addaction name="actionClear"/>
    <addaction name="separator"/>
    <addaction name="actionPrev_Image"/>
@@ -103,9 +109,12 @@
     <string>Select Image</string>
    </property>
   </action>
-  <action name="actionClear_Last_Selection">
+  <action name="actionClear_Current_Selection">
    <property name="text">
-    <string>Clear Last Selection</string>
+    <string>Clear Current Selection</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear Current Selection</string>
    </property>
    <property name="shortcut">
     <string>L</string>
@@ -115,9 +124,15 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>SelectionOnImage</class>
+   <class>FullImageView</class>
    <extends>QWidget</extends>
-   <header>selectiononimage.h</header>
+   <header>fullimageview.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SelectionDetailsView</class>
+   <extends>QWidget</extends>
+   <header>selectiondetailsview.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

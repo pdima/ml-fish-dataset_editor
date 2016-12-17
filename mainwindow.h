@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QFileInfo>
 
+#include "selectionmodel.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -28,6 +30,7 @@ private:
     void setLastDir(const QString& dir);
     void selectImage(int idx);
 
+    SelectionModel m_model;
 
     Ui::MainWindow *ui;
     QString m_dir;

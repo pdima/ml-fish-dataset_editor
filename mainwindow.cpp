@@ -11,16 +11,23 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->fullImageViewWidget->setModel(&m_model);
+    ui->selectionDetailsView->setModel(&m_model);
+
     connect(ui->actionExit, SIGNAL(triggered(bool)), QApplication::instance(), SLOT(quit()));
     connect(ui->actionOpen_Directory, SIGNAL(triggered(bool)), SLOT(openDirectory()));
     connect(ui->actionNext_Image, SIGNAL(triggered(bool)), SLOT(nextImage()));
     connect(ui->actionPrev_Image, SIGNAL(triggered(bool)), SLOT(prevImage()));
     connect(ui->actionSelect_Image, SIGNAL(triggered(bool)), SLOT(selectImage()));
 
-    connect(ui->actionClear, SIGNAL(triggered(bool)), ui->selectionOnImageWidget, SLOT(clearSelections()));
-    connect(ui->actionClear_Last_Selection, SIGNAL(triggered(bool)), ui->selectionOnImageWidget, SLOT(clearLastSelection()));
-    connect(ui->selectionOnImageWidget, SIGNAL(nextImageRequested()), SLOT(nextImage()));
-    connect(ui->selectionOnImageWidget, SIGNAL(prevImageRequested()), SLOT(prevImage()));
+    connect(ui->actionClear, SIGNAL(triggered(bool)), &m_model, SLOT(clearSelections()));
+    connect(ui->actionClear_Current_Selection, SIGNAL(triggered(bool)), &m_model, SLOT(clearCurrentSelection()));
+
+    connect(ui->fullImageViewWidget, SIGNAL(nextImageRequested()), SLOT(nextImage()));
+    connect(ui->fullImageViewWidget, SIGNAL(prevImageRequested()), SLOT(prevImage()));
+
+    connect(&m_model, SIGNAL(nextImageRequested()), SLOT(nextImage()));
+    connect(&m_model, SIGNAL(prevImageRequested()), SLOT(prevImage()));
 
     openDirectory(lastDir());
 }
@@ -50,7 +57,7 @@ void MainWindow::openDirectory(const QString &dir)
     int lastIdxWithSel = 0;
     for (int i=1; i<m_files.size(); i++)
     {
-        QString selPath = SelectionOnImage::selectionsPath(m_files[i].filePath());
+        QString selPath = SelectionModel::selectionsPath(m_files[i].filePath());
         if (!QFileInfo::exists(selPath))
         {
             lastIdxWithSel = i-1;
@@ -83,8 +90,8 @@ void MainWindow::selectImage(int idx)
     if (idx >= 0 && idx < m_files.count())
     {
         m_currentFile = idx;
-        ui->selectionOnImageWidget->load(m_files[m_currentFile]);
-        setWindowTitle(m_files[m_currentFile].fileName() + " " + m_dir);
+        m_model.load(m_files[m_currentFile]);
+        setWindowTitle(QString("%1 %2  %3/%4").arg(m_files[m_currentFile].fileName()).arg(m_dir).arg(idx+1).arg(m_files.count()));
     }
 }
 
