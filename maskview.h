@@ -41,8 +41,8 @@ private:
 //    QBitmap m_mask;
 
     QPoint m_mousePos;
-    double m_brushSize {96};
-    int m_border{128};
+    double m_brushSize {64};
+    int m_border{64};
 };
 
 #endif // MASKVIEW_H
