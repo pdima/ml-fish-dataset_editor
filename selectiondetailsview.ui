@@ -6,16 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>428</width>
-    <height>446</height>
+    <width>527</width>
+    <height>646</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="SelectionCropView" name="selectionCropView" native="true"/>
+   <item row="0" column="0" colspan="2">
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <widget class="SelectionCropView" name="selectionCropView" native="true"/>
+     <widget class="MaskView" name="selectionMaskView" native="true"/>
+    </widget>
    </item>
    <item row="1" column="0">
     <widget class="QCheckBox" name="checkWrongSpecies">
@@ -23,6 +29,9 @@
       <string>Wrong Species</string>
      </property>
     </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="speciesComboBox"/>
    </item>
    <item row="2" column="0">
     <widget class="QCheckBox" name="checkSmallPart">
@@ -45,6 +54,12 @@
    <class>SelectionCropView</class>
    <extends>QWidget</extends>
    <header>selectioncropview.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MaskView</class>
+   <extends>QWidget</extends>
+   <header>maskview.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

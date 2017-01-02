@@ -5,6 +5,7 @@
 #include <QFileInfo>
 #include <QImage>
 #include <QRectF>
+#include <QBitmap>
 
 struct SelectionInfo
 {
@@ -12,9 +13,13 @@ struct SelectionInfo
     QPointF head;
     QPointF tail;
 
+    QBitmap mask;
+
     bool wrongSpecies {false};
     bool smallPart {false};
     bool lowQuality {false};
+
+    QString species;
 };
 
 class SelectionModel: public QObject
@@ -25,6 +30,8 @@ public:
     ~SelectionModel();
 
     static QString selectionsPath(const QFileInfo& imgFile);
+    static QString maskPath(const QFileInfo& imgFile, int selIdx);
+    static QString generatedMaskPath(const QFileInfo& imgFile);
 
     QFileInfo m_imgPath;
     QImage m_fullImage;

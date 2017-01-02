@@ -23,6 +23,7 @@ void SelectionDetailsView::setModel(SelectionModel *model)
 {
     m_model = model;
     ui->selectionCropView->setModel(model);
+    ui->selectionMaskView->setModel(model);
 
     connect(model, SIGNAL(changed()), SLOT(updateBoxes()));
 }

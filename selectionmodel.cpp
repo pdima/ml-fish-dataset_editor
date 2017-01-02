@@ -2,6 +2,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QDir>
 
 SelectionModel::SelectionModel()
 {
@@ -15,6 +16,22 @@ SelectionModel::~SelectionModel()
 QString SelectionModel::selectionsPath(const QFileInfo &imgFile)
 {
     return imgFile.filePath() + ".sel.json";
+}
+
+QString SelectionModel::maskPath(const QFileInfo &imgFile, int selIdx)
+{
+    QDir dir = imgFile.dir();
+    dir.cd("masks");
+    QString baseName = imgFile.baseName();
+    return dir.absoluteFilePath(QString("%2_%3.png").arg(baseName).arg(selIdx));
+}
+
+QString SelectionModel::generatedMaskPath(const QFileInfo &imgFile)
+{
+    QDir dir = imgFile.dir();
+    dir.cd("generated_masks");
+    QString baseName = imgFile.baseName();
+    return dir.absoluteFilePath(QString("%2.png").arg(baseName));
 }
 
 SelectionInfo SelectionModel::currentSelection() const
@@ -88,6 +105,7 @@ void SelectionModel::load(const QFileInfo &imgPath)
         QJsonDocument doc = QJsonDocument::fromJson(selectionsFile.readAll());
         QJsonObject root = doc.object();
         m_species = root["species"].toString();
+        int selIdx = 0;
         for (QJsonValue selValue: root["selections"].toArray())
         {
             QJsonObject sel = selValue.toObject();
@@ -101,6 +119,22 @@ void SelectionModel::load(const QFileInfo &imgPath)
             info.r = QRectF(rect["x"].toDouble(), rect["y"].toDouble(), rect["w"].toDouble(), rect["h"].toDouble());
             info.head = pointFromJson(sel.value("head"));
             info.tail = pointFromJson(sel.value("tail"));
+
+            selIdx++;
+            QString maskFilePath = maskPath(imgPath, selIdx);
+            if (QFileInfo(maskFilePath).exists())
+            {
+                info.mask.load(maskFilePath);
+            }
+
+            if (info.mask.isNull())
+            {
+//                info.mask.load(generatedMaskPath(imgPath));
+//                info.mask = info.mask.scaled(m_fullImage.size(), Qt::IgnoreAspectRatio, Qt::FastTransformation);
+//                info.mask = info.mask.copy(info.r.toRect());
+                info.mask = QBitmap(info.r.toRect().size());
+                info.mask.fill(Qt::black);
+            }
 
             m_selections.append(info);
         }
@@ -120,8 +154,11 @@ void SelectionModel::save()
         QJsonObject root;
         root["species"] = m_species;
         root["file"] = m_imgPath.fileName();
+        root["w"] = m_fullImage.width();
+        root["h"] = m_fullImage.height();
 
         QJsonArray selections;
+        int selIdx = 0;
         for (const SelectionInfo& info: m_selections)
         {
             QJsonObject sel;
@@ -141,6 +178,12 @@ void SelectionModel::save()
             sel["tail"] = pointToJson(info.tail);
 
             selections.append(sel);
+
+            selIdx++;
+            if (!info.mask.isNull())
+            {
+                info.mask.save(maskPath(m_imgPath, selIdx));
+            }
         }
 
         root["selections"] = selections;

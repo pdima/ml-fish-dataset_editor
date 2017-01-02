@@ -1,0 +1,48 @@
+#ifndef MASKVIEW_H
+#define MASKVIEW_H
+
+#include <QWidget>
+#include <QBitmap>
+
+#include "selectionmodel.h"
+
+class MaskView : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit MaskView(QWidget *parent = 0);
+
+    void setModel(SelectionModel* model);
+
+signals:
+
+public slots:
+    void updateCrop();
+
+    // QWidget interface
+protected:
+    void mousePressEvent(QMouseEvent *) override;
+    void mouseMoveEvent(QMouseEvent *) override;
+    void mouseReleaseEvent(QMouseEvent *) override;
+    void wheelEvent(QWheelEvent *) override;
+    void paintEvent(QPaintEvent *) override;
+
+private:
+    double imgScale() const;
+    QPointF configToWidget(const QPointF &p) const;
+    QPointF widgetToConfig(const QPointF &p) const;
+
+    void paintOnMask(QMouseEvent* ev, int size);
+
+    SelectionModel* m_model;
+
+    SelectionInfo m_selection;
+    QImage m_crop;
+//    QBitmap m_mask;
+
+    QPoint m_mousePos;
+    double m_brushSize {96};
+    int m_border{128};
+};
+
+#endif // MASKVIEW_H

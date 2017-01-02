@@ -18,14 +18,16 @@ SOURCES += \
     selectionmodel.cpp \
     fullimageview.cpp \
     selectiondetailsview.cpp \
-    selectioncropview.cpp
+    selectioncropview.cpp \
+    maskview.cpp
 
 HEADERS  += \
     mainwindow.h \
     selectionmodel.h \
     fullimageview.h \
     selectiondetailsview.h \
-    selectioncropview.h
+    selectioncropview.h \
+    maskview.h
 
 FORMS    += mainwindow.ui \
     selectiondetailsview.ui
