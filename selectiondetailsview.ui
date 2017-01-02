@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>527</width>
-    <height>646</height>
+    <width>954</width>
+    <height>518</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,11 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" colspan="2">
     <widget class="QSplitter" name="splitter">
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Horizontal</enum>
      </property>
      <widget class="SelectionCropView" name="selectionCropView" native="true"/>
      <widget class="MaskView" name="selectionMaskView" native="true"/>
