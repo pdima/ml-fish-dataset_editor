@@ -32,7 +32,6 @@ private:
 
     SelectionModel* m_model;
 
-    SelectionInfo m_selection;
     QImage m_crop;
 
     QPointF m_headPoint;

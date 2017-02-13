@@ -25,6 +25,8 @@ public slots:
     void nextImage();
     void prevImage();
 
+    void findNextUnsetSpecies();
+
 private:
     QString lastDir() const;
     void setLastDir(const QString& dir);

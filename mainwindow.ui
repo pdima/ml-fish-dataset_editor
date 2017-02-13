@@ -41,6 +41,7 @@
     </property>
     <addaction name="actionOpen_Directory"/>
     <addaction name="actionSelect_Image"/>
+    <addaction name="actionSelect_unset_species"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -87,6 +88,9 @@
    <property name="shortcut">
     <string>C</string>
    </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionNext_Image">
    <property name="text">
@@ -118,6 +122,17 @@
    </property>
    <property name="shortcut">
     <string>L</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionSelect_unset_species">
+   <property name="text">
+    <string>Select unset species</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
  </widget>

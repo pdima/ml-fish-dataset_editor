@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->fullImageViewWidget, SIGNAL(nextImageRequested()), SLOT(nextImage()));
     connect(ui->fullImageViewWidget, SIGNAL(prevImageRequested()), SLOT(prevImage()));
+    connect(ui->actionSelect_unset_species, SIGNAL(triggered(bool)), SLOT(findNextUnsetSpecies()));
 
     connect(&m_model, SIGNAL(nextImageRequested()), SLOT(nextImage()));
     connect(&m_model, SIGNAL(prevImageRequested()), SLOT(prevImage()));
@@ -98,6 +99,20 @@ void MainWindow::selectImage(int idx)
 void MainWindow::prevImage()
 {
     selectImage(m_currentFile-1);
+}
+
+void MainWindow::findNextUnsetSpecies()
+{
+    while(m_currentFile < m_files.count()-1)
+    {
+        int idx = m_model.missingWrongSpeciesSelectionIdx();
+        if (idx >= 0)
+        {
+            m_model.setCurrentSelection(idx);
+            return;
+        }
+        nextImage();
+    }
 }
 
 void MainWindow::nextImage()

@@ -54,7 +54,7 @@ void MaskView::mouseMoveEvent(QMouseEvent *ev)
 
 void MaskView::mouseReleaseEvent(QMouseEvent *)
 {
-    m_model->currentSelection() = m_selection;
+    m_model->currentSelection().mask = m_selection.mask;
     m_model->save();
     m_model->update();
 }

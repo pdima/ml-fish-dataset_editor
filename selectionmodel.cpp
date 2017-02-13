@@ -69,7 +69,9 @@ void SelectionModel::selectPrevCrop()
 void SelectionModel::appendSelection(const QRectF &r)
 {
     SelectionInfo info;
-    info.r = r;
+    info.r = r.toRect().intersected(QRect(0, 0, m_fullImage.width(), m_fullImage.height()));
+    info.mask = QBitmap(info.r.size().toSize());
+    info.mask.fill(Qt::black);
     m_selections.append(info);
     m_currentSelection = m_selections.size() - 1;
     save();
@@ -115,6 +117,8 @@ void SelectionModel::load(const QFileInfo &imgPath)
             info.wrongSpecies = sel.value("wrong_species").toBool(false);
             info.smallPart = sel.value("small_part").toBool(false);
             info.lowQuality = sel.value("low_quality").toBool(false);
+            info.ignored = sel.value("ignored").toBool(false);
+            info.species = sel.value("species").toString();
 
             info.r = QRectF(rect["x"].toDouble(), rect["y"].toDouble(), rect["w"].toDouble(), rect["h"].toDouble());
             info.head = pointFromJson(sel.value("head"));
@@ -166,6 +170,7 @@ void SelectionModel::save()
             if (info.wrongSpecies) sel["wrong_species"] = true;
             if (info.smallPart) sel["small_part"] = true;
             if (info.lowQuality) sel["low_quality"] = true;
+            if (info.ignored) sel["ignored"] = true;
 
             QJsonObject rect;
             rect["x"] = info.r.x();
@@ -176,6 +181,8 @@ void SelectionModel::save()
 
             sel["head"] = pointToJson(info.head);
             sel["tail"] = pointToJson(info.tail);
+            if (!info.species.isEmpty())
+                sel["species"] = info.species;
 
             selections.append(sel);
 
@@ -191,6 +198,14 @@ void SelectionModel::save()
         QJsonDocument doc(root);
         selectionsFile.write(doc.toJson());
     }
+}
+
+int SelectionModel::missingWrongSpeciesSelectionIdx() const
+{
+    for (int i=0; i<m_selections.size(); i++)
+        if (m_selections[i].wrongSpecies && m_selections[i].species.isEmpty())
+            return i;
+    return -1;
 }
 
 void SelectionModel::update()

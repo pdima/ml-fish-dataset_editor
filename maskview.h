@@ -38,7 +38,6 @@ private:
 
     SelectionInfo m_selection;
     QImage m_crop;
-//    QBitmap m_mask;
 
     QPoint m_mousePos;
     double m_brushSize {64};

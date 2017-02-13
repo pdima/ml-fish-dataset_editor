@@ -18,6 +18,7 @@ struct SelectionInfo
     bool wrongSpecies {false};
     bool smallPart {false};
     bool lowQuality {false};
+    bool ignored {false};
 
     QString species;
 };
@@ -54,6 +55,8 @@ public:
 
     void load(const QFileInfo& imgPath);
     void save();
+
+    int missingWrongSpeciesSelectionIdx() const;
 
 public slots:
     void update();

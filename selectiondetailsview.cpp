@@ -3,6 +3,8 @@
 
 #include "selectionmodel.h"
 
+#include <QDebug>
+
 SelectionDetailsView::SelectionDetailsView(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SelectionDetailsView)
@@ -12,6 +14,8 @@ SelectionDetailsView::SelectionDetailsView(QWidget *parent) :
     connect(ui->checkSmallPart, SIGNAL(clicked(bool)), SLOT(updateModelFromBoxes()));
     connect(ui->checkWrongSpecies, SIGNAL(clicked(bool)), SLOT(updateModelFromBoxes()));
     connect(ui->checkVeryLowQuality, SIGNAL(clicked(bool)), SLOT(updateModelFromBoxes()));
+    connect(ui->checkIgnored, SIGNAL(clicked(bool)), SLOT(updateModelFromBoxes()));
+    connect(ui->speciesComboBox, SIGNAL(activated(int)), SLOT(updateModelFromBoxes()));
 }
 
 SelectionDetailsView::~SelectionDetailsView()
@@ -36,6 +40,7 @@ void SelectionDetailsView::updateBoxes()
         ui->checkSmallPart->setChecked(false);
         ui->checkWrongSpecies->setChecked(false);
         ui->checkVeryLowQuality->setChecked(false);
+        ui->checkIgnored->setChecked(false);
     }
     else
     {
@@ -43,6 +48,9 @@ void SelectionDetailsView::updateBoxes()
         ui->checkSmallPart->setChecked(m_model->currentSelection().smallPart);
         ui->checkWrongSpecies->setChecked(m_model->currentSelection().wrongSpecies);
         ui->checkVeryLowQuality->setChecked(m_model->currentSelection().lowQuality);
+        ui->checkIgnored->setChecked(m_model->currentSelection().ignored);
+        ui->speciesComboBox->setCurrentText(m_model->currentSelection().species);
+        qDebug() << "Species:" << m_model->currentSelection().species;
     }
 }
 
@@ -51,6 +59,8 @@ void SelectionDetailsView::updateModelFromBoxes()
     m_model->currentSelection().smallPart = ui->checkSmallPart->isChecked();
     m_model->currentSelection().wrongSpecies = ui->checkWrongSpecies->isChecked();
     m_model->currentSelection().lowQuality = ui->checkVeryLowQuality->isChecked();
+    m_model->currentSelection().ignored = ui->checkIgnored->isChecked();
+    m_model->currentSelection().species = ui->speciesComboBox->currentText();
     m_model->save();
     m_model->update();
 }

@@ -31,15 +31,62 @@
      <property name="text">
       <string>Wrong Species</string>
      </property>
+     <property name="shortcut">
+      <string>F1</string>
+     </property>
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QComboBox" name="speciesComboBox"/>
+    <widget class="QComboBox" name="speciesComboBox">
+     <item>
+      <property name="text">
+       <string/>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ALB</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>BET</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>DOL</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>LAG</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>OTHER</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SHARK</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>YFT</string>
+      </property>
+     </item>
+    </widget>
    </item>
    <item row="2" column="0">
     <widget class="QCheckBox" name="checkSmallPart">
      <property name="text">
       <string>Small Part</string>
+     </property>
+     <property name="shortcut">
+      <string>F2</string>
      </property>
     </widget>
    </item>
@@ -47,6 +94,19 @@
     <widget class="QCheckBox" name="checkVeryLowQuality">
      <property name="text">
       <string>Very Low Quality</string>
+     </property>
+     <property name="shortcut">
+      <string>F3</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QCheckBox" name="checkIgnored">
+     <property name="text">
+      <string>Ignored</string>
+     </property>
+     <property name="shortcut">
+      <string>F4</string>
      </property>
     </widget>
    </item>

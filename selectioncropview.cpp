@@ -82,8 +82,11 @@ void SelectionCropView::paintEvent(QPaintEvent *)
     }
     else
     {
-        head = m_selection.head;
-        tail = m_selection.tail;
+        if (!m_model->isEmpty())
+        {
+            head = m_model->currentSelection().head;
+            tail = m_model->currentSelection().tail;
+        }
     }
 
     if (head != QPointF() && tail != QPointF())
@@ -115,8 +118,7 @@ void SelectionCropView::updateCrop()
     }
     else
     {
-        m_selection = m_model->currentSelection();
-        m_crop = m_model->m_fullImage.copy(m_selection.r.toRect());
+        m_crop = m_model->m_fullImage.copy(m_model->currentSelection().r.toRect());
     }
 
     update();
