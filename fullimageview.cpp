@@ -88,6 +88,19 @@ void FullImageView::paintEvent(QPaintEvent *)
 
             p.fillRect(selectionInWidgetSpace, QColor(40, 40, 100, 50));
             p.drawRect(selectionInWidgetSpace);
+
+            QString title = m_model->m_selections[i].species;
+            if (m_model->m_selections[i].ignored)
+                title += " *I*";
+            if (m_model->m_selections[i].unsure)
+                title += "???";
+
+            QFont f(p.font());
+            f.setBold(true);
+            p.setFont(f);
+            p.setPen(Qt::white);
+            if (!title.isEmpty())
+                p.drawText(selectionInWidgetSpace.topLeft(), title);
         }
 
         if (m_selecting)

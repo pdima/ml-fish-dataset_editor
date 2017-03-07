@@ -53,7 +53,7 @@ void MainWindow::openDirectory(const QString &dir)
 {
     m_dir = dir;
     QDir d(dir);
-    m_files = d.entryInfoList({"*.jpg"});
+    m_files = d.entryInfoList({"*.jpg", "*.jpeg", "*.JPG", "*.JPEG"});
 
     int lastIdxWithSel = 0;
     for (int i=1; i<m_files.size(); i++)

@@ -19,6 +19,7 @@ struct SelectionInfo
     bool smallPart {false};
     bool lowQuality {false};
     bool ignored {false};
+    bool unsure {false};
 
     QString species;
 };

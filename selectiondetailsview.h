@@ -2,6 +2,7 @@
 #define SELECTIONDETAILSVIEW_H
 
 #include <QWidget>
+#include <QButtonGroup>
 
 class SelectionModel;
 
@@ -26,6 +27,8 @@ private slots:
 private:
     Ui::SelectionDetailsView *ui;
     SelectionModel* m_model;
+    QButtonGroup m_species;
+    QStringList m_speciesNames;
 };
 
 #endif // SELECTIONDETAILSVIEW_H

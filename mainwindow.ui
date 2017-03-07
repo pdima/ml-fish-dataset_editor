@@ -64,8 +64,8 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionSelect_Image"/>
    <addaction name="actionClear_Current_Selection"/>
-   <addaction name="actionClear"/>
    <addaction name="separator"/>
    <addaction name="actionPrev_Image"/>
    <addaction name="actionNext_Image"/>

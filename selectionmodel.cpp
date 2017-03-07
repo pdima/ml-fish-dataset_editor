@@ -118,6 +118,7 @@ void SelectionModel::load(const QFileInfo &imgPath)
             info.smallPart = sel.value("small_part").toBool(false);
             info.lowQuality = sel.value("low_quality").toBool(false);
             info.ignored = sel.value("ignored").toBool(false);
+            info.unsure = sel.value("unsure").toBool(false);
             info.species = sel.value("species").toString();
 
             info.r = QRectF(rect["x"].toDouble(), rect["y"].toDouble(), rect["w"].toDouble(), rect["h"].toDouble());
@@ -171,6 +172,7 @@ void SelectionModel::save()
             if (info.smallPart) sel["small_part"] = true;
             if (info.lowQuality) sel["low_quality"] = true;
             if (info.ignored) sel["ignored"] = true;
+            if (info.unsure) sel["unsure"] = true;
 
             QJsonObject rect;
             rect["x"] = info.r.x();

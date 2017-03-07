@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>954</width>
-    <height>518</height>
+    <width>1024</width>
+    <height>585</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0" colspan="2">
     <widget class="QSplitter" name="splitter">
      <property name="layoutDirection">
@@ -36,48 +36,93 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QComboBox" name="speciesComboBox">
-     <item>
-      <property name="text">
-       <string/>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ALB</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>BET</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>DOL</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>LAG</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>OTHER</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>SHARK</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>YFT</string>
-      </property>
-     </item>
+   <item row="1" column="1" rowspan="4">
+    <widget class="QGroupBox" name="speciesGroupBox">
+     <property name="title">
+      <string>Species</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="radioButton_0">
+        <property name="text">
+         <string>Default</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QRadioButton" name="radioButton_D">
+        <property name="text">
+         <string>DOL</string>
+        </property>
+        <property name="shortcut">
+         <string>D</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QRadioButton" name="radioButton_S">
+        <property name="text">
+         <string>SHARK</string>
+        </property>
+        <property name="shortcut">
+         <string>S</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QRadioButton" name="radioButton_A">
+        <property name="text">
+         <string>ALB</string>
+        </property>
+        <property name="shortcut">
+         <string>A</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QRadioButton" name="radioButton_L">
+        <property name="text">
+         <string>LAG</string>
+        </property>
+        <property name="shortcut">
+         <string>L</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QRadioButton" name="radioButton_Y">
+        <property name="text">
+         <string>YFT</string>
+        </property>
+        <property name="shortcut">
+         <string>Y</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QRadioButton" name="radioButton_B">
+        <property name="text">
+         <string>BET</string>
+        </property>
+        <property name="shortcut">
+         <string>B</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QRadioButton" name="radioButton_O">
+        <property name="text">
+         <string>OTHER</string>
+        </property>
+        <property name="shortcut">
+         <string>O</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item row="2" column="0">
@@ -107,6 +152,13 @@
      </property>
      <property name="shortcut">
       <string>F4</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QCheckBox" name="checkUnsure">
+     <property name="text">
+      <string>Unsure</string>
      </property>
     </widget>
    </item>
